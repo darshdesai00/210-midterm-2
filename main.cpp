@@ -236,20 +236,44 @@ int main() {
     line.print();
     cout << endl;
 
-    // step 3: 20-min simulation
+        // step 3: 20-min simulation with extra events
     for (int minute = 1; minute <= 20; ++minute) {
+        cout << "\n----- Minute " << minute << " -----" << endl;
+
         int prob = rand() % 100 + 1;
+
         if (prob <= 40) {
+            // 40% chance a customer is served
             cout << "A customer was served." << endl;
             line.pop_front();
-        } else if (prob <= 100 && rand() % 2 == 0) {
+        }
+        else if (prob <= 60) {
+            // 20% chance the last customer leaves (impatient)
+            cout << "A customer at the end got impatient and left!" << endl;
+            line.pop_back();
+        }
+        else if (prob <= 70) {
+            // 10% chance a VIP joins the front
+            int randomIndex = rand() % allNames.size();
+            string vip = allNames[randomIndex];
+            line.push_front(vip);
+            cout << vip << " (VIP) joins the FRONT of the line!" << endl;
+        }
+        else {
+            // everyone else (remaining 30%) new customer joins normally
             int randomIndex = rand() % allNames.size();
             string newPerson = allNames[randomIndex];
             line.push_back(newPerson);
-            cout << newPerson << " joins the line" << endl;
+            cout << newPerson << " joins the line." << endl;
         }
 
-        cout << "After minute " << minute << ": ";
+        cout << "Line after minute " << minute << ": ";
         line.print();
-    
     }
+
+    cout << "\n--- Store closes ---" << endl;
+    cout << "Final line: ";
+    line.print();
+
+    return 0;
+}

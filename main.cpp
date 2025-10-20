@@ -6,10 +6,13 @@
 #include <ctime>
 using namespace std;
 
+// these are the constants for random ranges
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 
+// below is the Doublyllinkedlist class which is pretty much used to the customer line
 class DoublyLinkedList {
 private:
+// node structure for the customers
     struct Node {
         string data;
         Node* prev;
@@ -25,9 +28,10 @@ private:
     Node* tail;
 
 public:
+    // constructor just gives empty list
     DoublyLinkedList() { head = nullptr; tail = nullptr; }
 
-    
+    // inserting a node after the position
     void insert_after(string value, int position) {
         if (position < 0) {
             cout << "Position must be >= 0." << endl;
@@ -58,7 +62,7 @@ public:
             tail = newNode;
         temp->next = newNode;
     }
-
+    // deletes a node on its given value
     void delete_val(string value) {
         if (!head) return;
 
@@ -80,7 +84,7 @@ public:
 
         delete temp;
     }
-
+    // delete a node by its given position
     void delete_pos(int pos) {
         if (!head) {
             cout << "List is empty." << endl;
@@ -117,6 +121,7 @@ public:
         delete temp;
     }
 
+    // adds a new customer at the end of line
     void push_back(string v) {
         Node* newNode = new Node(v);
         if (!tail)
@@ -128,7 +133,7 @@ public:
         }
     }
 
-    
+    // adds a new customer at the front of line
     void push_front(string v) {
         Node* newNode = new Node(v);
         if (!head)
@@ -140,6 +145,7 @@ public:
         }
     }
 
+    // gets rid of th first customer
     void pop_front() {
         if (!head) {
             cout << "List is empty." << endl;
@@ -156,6 +162,7 @@ public:
         delete temp;
     }
 
+    // removes the last customer
     void pop_back() {
         if (!tail) {
             cout << "List is empty." << endl;
@@ -170,7 +177,7 @@ public:
             head = tail = nullptr;
         delete temp;
     }
-
+    // free memory
     ~DoublyLinkedList() {
         while (head) {
             Node* temp = head;
@@ -178,7 +185,7 @@ public:
             delete temp;
         }
     }
-
+    // below prints the list forward 
     void print() {
         Node* current = head;
         if (!current) {
@@ -191,7 +198,7 @@ public:
         }
         cout << endl;
     }
-
+    // 
     void print_reverse() {
         Node* current = tail;
         if (!current) {

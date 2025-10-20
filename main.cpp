@@ -209,7 +209,24 @@ public:
 };
 
 int main() {
-    cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
+    srand(time(0)); // seed the random number generator
+
+    // read names from names.txt
+    vector<string> allNames;
+    ifstream file("names.txt");   // opens the file
+    string name;
+
+    if (!file.is_open()) {        // checks if it opened
+        cout << "Error: could not open names.txt" << endl;
+        return 1;
+    }
+
+    while (getline(file, name)) { // reds one line at a time
+        if (!name.empty()) {
+            allNames.push_back(name);
+        }
+    }
+    file.close();
 
     
     return 0;

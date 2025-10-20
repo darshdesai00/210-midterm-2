@@ -28,7 +28,7 @@ private:
 public:
     DoublyLinkedList() { head = nullptr; tail = nullptr; }
 
-    void insert_after(int value, int position) {
+    void insert_after(string value, int position) {
         if (position < 0) {
             cout << "Position must be >= 0." << endl;
             return;
@@ -130,7 +130,7 @@ public:
         }
     }
     
-    void push_front(int v) {
+    void push_front(string v) {
         Node* newNode = new Node(v);
         if (!head)
             head = tail = newNode;
@@ -242,7 +242,14 @@ int main() {
     }
 
     cout << "Resulting line: ";
-    line.print();
+line.print();
 
-    return 0;
+cout << endl; // spacing
+
+// Step 3: Run 20 min
+for (int minute = 1; minute <= 20; ++minute) {
+    
+
+return 0;
 }
+

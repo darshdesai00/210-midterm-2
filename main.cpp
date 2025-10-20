@@ -11,16 +11,15 @@ const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 class DoublyLinkedList {
 private:
     struct Node {
-    string data;
-    Node* prev;
-    Node* next;
-    Node(string val, Node* p = nullptr, Node* n = nullptr) {
-        data = val;
-        prev = p;
-        next = n;
-    }
-};
-
+        string data;
+        Node* prev;
+        Node* next;
+        Node(string val, Node* p = nullptr, Node* n = nullptr) {
+            data = val;
+            prev = p;
+            next = n;
+        }
+    };
 
     Node* head;
     Node* tail;
@@ -28,6 +27,7 @@ private:
 public:
     DoublyLinkedList() { head = nullptr; tail = nullptr; }
 
+    
     void insert_after(string value, int position) {
         if (position < 0) {
             cout << "Position must be >= 0." << endl;
@@ -63,21 +63,20 @@ public:
         if (!head) return;
 
         Node* temp = head;
-        
         while (temp && temp->data != value)
             temp = temp->next;
 
-        if (!temp) return; 
+        if (!temp) return;
 
         if (temp->prev)
             temp->prev->next = temp->next;
         else
-            head = temp->next; 
+            head = temp->next;
 
         if (temp->next)
             temp->next->prev = temp->prev;
         else
-            tail = temp->prev; 
+            tail = temp->prev;
 
         delete temp;
     }
@@ -87,32 +86,31 @@ public:
             cout << "List is empty." << endl;
             return;
         }
-    
+
         if (pos == 1) {
             pop_front();
             return;
         }
-    
+
         Node* temp = head;
-    
-        for (int i = 1; i < pos; i++){
+
+        for (int i = 1; i < pos; i++) {
             if (!temp) {
                 cout << "Position doesn't exist." << endl;
                 return;
-            }
-            else
+            } else
                 temp = temp->next;
         }
         if (!temp) {
             cout << "Position doesn't exist." << endl;
             return;
         }
-    
+
         if (!temp->next) {
             pop_back();
             return;
         }
-    
+
         Node* tempPrev = temp->prev;
         tempPrev->next = temp->next;
         temp->next->prev = tempPrev;
@@ -129,6 +127,7 @@ public:
             tail = newNode;
         }
     }
+
     
     void push_front(string v) {
         Node* newNode = new Node(v);
@@ -140,21 +139,19 @@ public:
             head = newNode;
         }
     }
-    
-    void pop_front() {
 
+    void pop_front() {
         if (!head) {
             cout << "List is empty." << endl;
             return;
         }
 
-        Node * temp = head;
+        Node* temp = head;
 
         if (head->next) {
             head = head->next;
             head->prev = nullptr;
-        }
-        else
+        } else
             head = tail = nullptr;
         delete temp;
     }
@@ -164,13 +161,12 @@ public:
             cout << "List is empty." << endl;
             return;
         }
-        Node * temp = tail;
+        Node* temp = tail;
 
         if (tail->prev) {
             tail = tail->prev;
             tail->next = nullptr;
-        }
-        else
+        } else
             head = tail = nullptr;
         delete temp;
     }
@@ -182,6 +178,7 @@ public:
             delete temp;
         }
     }
+
     void print() {
         Node* current = head;
         if (!current) {
@@ -197,7 +194,7 @@ public:
 
     void print_reverse() {
         Node* current = tail;
-        if (!current) { 
+        if (!current) {
             cout << "List is empty." << endl;
             return;
         }
@@ -210,28 +207,22 @@ public:
 };
 
 int main() {
-    srand(time(0)); // seed the random number generator
+    srand(time(0)); 
 
-    // read names from names.txt
     vector<string> allNames;
-    ifstream file("names.txt");   // opens the file
+    ifstream file("names.txt");
     string name;
-
-    if (!file.is_open()) {        // checks if it opened
+    if (!file.is_open()) {
         cout << "Error: could not open names.txt" << endl;
         return 1;
     }
 
-    while (getline(file, name)) { // reds one line at a time
-        if (!name.empty()) {
-            allNames.push_back(name);
-        }
+    while (getline(file, name)) {
+        if (!name.empty()) allNames.push_back(name);
     }
     file.close();
 
-    // adds 5 random customers
     DoublyLinkedList line;
-
     cout << "Store opens:" << endl;
 
     for (int i = 0; i < 5; ++i) {
@@ -242,14 +233,23 @@ int main() {
     }
 
     cout << "Resulting line: ";
-line.print();
+    line.print();
+    cout << endl;
 
-cout << endl; // spacing
+    // step 3: 20-min simulation
+    for (int minute = 1; minute <= 20; ++minute) {
+        int prob = rand() % 100 + 1;
+        if (prob <= 40) {
+            cout << "A customer was served." << endl;
+            line.pop_front();
+        } else if (prob <= 100 && rand() % 2 == 0) {
+            int randomIndex = rand() % allNames.size();
+            string newPerson = allNames[randomIndex];
+            line.push_back(newPerson);
+            cout << newPerson << " joins the line" << endl;
+        }
 
-// Step 3: Run 20 min
-for (int minute = 1; minute <= 20; ++minute) {
+        cout << "After minute " << minute << ": ";
+        line.print();
     
-
-return 0;
-}
-
+    }

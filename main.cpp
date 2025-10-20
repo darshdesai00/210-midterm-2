@@ -11,15 +11,16 @@ const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 class DoublyLinkedList {
 private:
     struct Node {
-        int data;
-        Node* prev;
-        Node* next;
-        Node(int val, Node* p = nullptr, Node* n = nullptr) {
-            data = val; 
-            prev = p;
-            next = n;
-        }
-    };
+    string data;
+    Node* prev;
+    Node* next;
+    Node(string val, Node* p = nullptr, Node* n = nullptr) {
+        data = val;
+        prev = p;
+        next = n;
+    }
+};
+
 
     Node* head;
     Node* tail;
@@ -58,7 +59,7 @@ public:
         temp->next = newNode;
     }
 
-    void delete_val(int value) {
+    void delete_val(string value) {
         if (!head) return;
 
         Node* temp = head;
@@ -118,7 +119,7 @@ public:
         delete temp;
     }
 
-    void push_back(int v) {
+    void push_back(string v) {
         Node* newNode = new Node(v);
         if (!tail)
             head = tail = newNode;
@@ -228,6 +229,20 @@ int main() {
     }
     file.close();
 
-    
+    // adds 5 random customers
+    DoublyLinkedList line;
+
+    cout << "Store opens:" << endl;
+
+    for (int i = 0; i < 5; ++i) {
+        int randomIndex = rand() % allNames.size();
+        string person = allNames[randomIndex];
+        line.push_back(person);
+        cout << person << " joins the line" << endl;
+    }
+
+    cout << "Resulting line: ";
+    line.print();
+
     return 0;
 }

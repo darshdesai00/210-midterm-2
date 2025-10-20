@@ -198,7 +198,7 @@ public:
         }
         cout << endl;
     }
-    // 
+     // belows prints the lists in reverse
     void print_reverse() {
         Node* current = tail;
         if (!current) {
@@ -214,8 +214,9 @@ public:
 };
 
 int main() {
-    srand(time(0)); 
+    srand(time(0)); // this is our random seed
 
+    // reads all the names in the names.txt file
     vector<string> allNames;
     ifstream file("names.txt");
     string name;
@@ -229,9 +230,11 @@ int main() {
     }
     file.close();
 
+    // below creates a customer line
     DoublyLinkedList line;
     cout << "Store opens:" << endl;
 
+    // below adds 5 random customers from the names.txt file to the start
     for (int i = 0; i < 5; ++i) {
         int randomIndex = rand() % allNames.size();
         string person = allNames[randomIndex];
@@ -243,7 +246,7 @@ int main() {
     line.print();
     cout << endl;
 
-        // step 3: 20-min simulation with extra events
+        // 20 min simulation that also include random events
     for (int minute = 1; minute <= 20; ++minute) {
         cout << "\n----- Minute " << minute << " -----" << endl;
 
@@ -284,3 +287,4 @@ int main() {
 
     return 0;
 }
+
